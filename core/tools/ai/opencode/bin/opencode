@@ -1,0 +1,48 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+UBUNTU_ROOTFS="__UBUNTU_ROOTFS__"
+
+EXCLUDE_REGEX="^(PATH|LD_PRELOAD|LD_LIBRARY_PATH|PREFIX|HOME|PWD|OLDPWD|SHELL|IFS|_|SHLVL|PROMPT_COMMAND|TERMCAP|LS_COLORS|TERM)="
+
+ENV_ARGS=()
+while IFS= read -r line; do
+	if [[ -n "$line" && ! "$line" =~ $EXCLUDE_REGEX ]]; then
+		ENV_ARGS+=("--env" "$line")
+	fi
+done < <(env)
+
+ENV_ARGS+=(
+	"--env" "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
+	"--env" "TERM=${TERM:-xterm-256color}"
+	"--env" "HOME=/root"
+	"--env" "TMPDIR=/tmp"
+)
+
+BIND_ARGS=()
+if [ -d "/sdcard" ]; then
+	BIND_ARGS+=("--bind" "/sdcard:/sdcard")
+fi
+if [ -d "/storage" ]; then
+	BIND_ARGS+=("--bind" "/storage:/storage")
+fi
+if [ -d "$HOME" ]; then
+	BIND_ARGS+=("--bind" "$HOME:$HOME")
+fi
+if [ -d "$HOME/.config/opencode" ]; then
+	BIND_ARGS+=("--bind" "$HOME/.config/opencode:/root/.config/opencode")
+fi
+
+TARGET_DIR="$PWD"
+if [ -z "$TARGET_DIR" ] || [ ! -d "$TARGET_DIR" ]; then
+	TARGET_DIR="/root"
+fi
+
+unset LD_PRELOAD
+proot-distro login \
+	"${ENV_ARGS[@]}" \
+	"${BIND_ARGS[@]}" \
+	--termux-home \
+	--shared-tmp \
+	--work-dir "$TARGET_DIR" \
+	ubuntu \
+	-- /root/.opencode/bin/opencode "$@"
