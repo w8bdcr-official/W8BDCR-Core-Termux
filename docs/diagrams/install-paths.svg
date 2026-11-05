@@ -1,0 +1,32 @@
+<svg viewBox="0 0 1200 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="W8BDCR Core: three ways to install — module, single tools, selector">
+  <desc>Three install paths: whole module, single tools by flag, interactive selector.</desc>
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.2" fill="#ffffff" fill-opacity="0.07"/>
+    </pattern>
+    <radialGradient id="glow" cx="62%" cy="38%" r="60%">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity="0.22"/>
+      <stop offset="55%" stop-color="#16a34a" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="360" fill="#0b0e14"/>
+  <rect width="1200" height="360" fill="url(#dots)"/>
+  <rect width="1200" height="360" fill="url(#glow)"/>
+  <text x="48" y="52" font-family="Consolas, 'Courier New', monospace" font-size="13" fill="#4ade80" letter-spacing="2.5">THREE WAYS TO INSTALL</text>
+  <text x="1152" y="52" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#71717a" text-anchor="end" letter-spacing="1.5">one CLI</text>
+  <text x="48" y="104" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="36" fill="#e9edf3" font-weight="800">Pick a module, a tool,</text>
+  <text x="48" y="144" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="36" fill="#4ade80" font-weight="800">or let it ask.</text>
+  <rect x="48" y="168" width="368" height="140" rx="12" fill="#111827" stroke="#22c55e" stroke-opacity="0.45"/>
+  <text x="66" y="198" font-family="Consolas, 'Courier New', monospace" font-size="17" fill="#4ade80" font-weight="700">1 · Whole module</text>
+  <text x="66" y="232" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#e9edf3">core install ai</text>
+  <text x="66" y="268" font-family="Consolas, 'Courier New', monospace" font-size="13" fill="#8b949e">All 26 agents in one go</text>
+  <rect x="432" y="168" width="368" height="140" rx="12" fill="#111827" stroke="#22c55e" stroke-opacity="0.45"/>
+  <text x="450" y="198" font-family="Consolas, 'Courier New', monospace" font-size="17" fill="#4ade80" font-weight="700">2 · Single tools</text>
+  <text x="450" y="232" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#e9edf3">core install ai --opencode</text>
+  <text x="450" y="268" font-family="Consolas, 'Courier New', monospace" font-size="13" fill="#8b949e">Just the tools you name</text>
+  <rect x="816" y="168" width="368" height="140" rx="12" fill="#111827" stroke="#22c55e" stroke-opacity="0.45"/>
+  <text x="834" y="198" font-family="Consolas, 'Courier New', monospace" font-size="17" fill="#4ade80" font-weight="700">3 · Interactive selector</text>
+  <text x="834" y="232" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#e9edf3">core install ai</text>
+  <text x="834" y="268" font-family="Consolas, 'Courier New', monospace" font-size="13" fill="#8b949e">Pick from the list on screen</text>
+</svg>

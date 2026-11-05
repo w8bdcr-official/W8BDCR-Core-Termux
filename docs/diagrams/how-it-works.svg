@@ -1,0 +1,47 @@
+<svg viewBox="0 0 1200 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="How W8BDCR Core works: one command, core dispatches, tool installs">
+  <desc>Four-step flow: type a core command, core dispatches to the module, the tool installs, you use it.</desc>
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.2" fill="#ffffff" fill-opacity="0.07"/>
+    </pattern>
+    <radialGradient id="glow" cx="62%" cy="38%" r="60%">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity="0.22"/>
+      <stop offset="55%" stop-color="#16a34a" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gradGreen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#86efac"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" fill="#0b0e14"/>
+  <rect width="1200" height="360" fill="url(#dots)"/>
+  <rect width="1200" height="360" fill="url(#glow)"/>
+  <text x="48" y="52" font-family="Consolas, 'Courier New', monospace" font-size="13" fill="#4ade80" letter-spacing="2.5">ONE COMMAND · FOUR STEPS</text>
+  <text x="1152" y="52" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#71717a" text-anchor="end" letter-spacing="1.5">core install</text>
+  <text x="48" y="104" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="36" fill="#e9edf3" font-weight="800">Type it. Core does the rest.</text>
+  <rect x="48" y="150" width="264" height="150" rx="14" fill="#111827" stroke="#22c55e" stroke-opacity="0.45"/>
+  <text x="68" y="186" font-family="Consolas, 'Courier New', monospace" font-size="28" fill="#4ade80" font-weight="800">1</text>
+  <text x="68" y="214" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="17" fill="#e9edf3" font-weight="700">You type</text>
+  <text x="68" y="242" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#c9d1d9">core install ai</text>
+  <text x="68" y="268" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#8b949e">--opencode</text>
+  <text x="314" y="232" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="28" fill="#4ade80" font-weight="700">→</text>
+  <rect x="336" y="150" width="264" height="150" rx="14" fill="#111827" stroke="#22c55e" stroke-opacity="0.45"/>
+  <text x="356" y="186" font-family="Consolas, 'Courier New', monospace" font-size="28" fill="#4ade80" font-weight="800">2</text>
+  <text x="356" y="214" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="17" fill="#e9edf3" font-weight="700">Core dispatches</text>
+  <text x="356" y="242" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#c9d1d9">ai module →</text>
+  <text x="356" y="268" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#8b949e">all.sh → installer</text>
+  <text x="602" y="232" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="28" fill="#4ade80" font-weight="700">→</text>
+  <rect x="624" y="150" width="264" height="150" rx="14" fill="#111827" stroke="#22c55e" stroke-opacity="0.45"/>
+  <text x="644" y="186" font-family="Consolas, 'Courier New', monospace" font-size="28" fill="#4ade80" font-weight="800">3</text>
+  <text x="644" y="214" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="17" fill="#e9edf3" font-weight="700">Tool installs</text>
+  <text x="644" y="242" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#c9d1d9">proot Ubuntu ·</text>
+  <text x="644" y="268" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#8b949e">pinned v1.19.5</text>
+  <text x="890" y="232" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="28" fill="#4ade80" font-weight="700">→</text>
+  <rect x="912" y="150" width="264" height="150" rx="14" fill="#111827" stroke="#22c55e" stroke-opacity="0.45"/>
+  <text x="932" y="186" font-family="Consolas, 'Courier New', monospace" font-size="28" fill="#4ade80" font-weight="800">4</text>
+  <text x="932" y="214" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="17" fill="#e9edf3" font-weight="700">You build</text>
+  <text x="932" y="242" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#c9d1d9">opencode-start</text>
+  <text x="932" y="268" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#8b949e">server + TUI up</text>
+  <text x="48" y="336" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="15" fill="#8b949e">No manual pkg installs, no PATH edits, no config files to hand-write.</text>
+</svg>

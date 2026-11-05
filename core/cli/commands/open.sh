@@ -3,7 +3,7 @@
 import "@/utils/log"
 import "@/utils/colors"
 
-OPEN_BASE_URL="https://devcorex-web.vercel.app"
+OPEN_BASE_URL="https://github.com/w8bdcr-official/W8BDCR-Core-Termux"
 
 open_main() {
 	if [[ $# -eq 0 ]]; then
@@ -15,14 +15,14 @@ open_main() {
 	local url=""
 
 	case "$target" in
-	devcorex)
-		url="$OPEN_BASE_URL"
+	w8bdcr)
+		url="https://w8bdcr.de5.net"
 		;;
 	core | help)
-		url="$OPEN_BASE_URL/core-termux"
+		url="$OPEN_BASE_URL"
 		;;
 	lang | db | ai | editor | dev | npm | shell | ui | auto)
-		url="$OPEN_BASE_URL/core-termux/$target"
+		url="$OPEN_BASE_URL/tree/main/core/tools/$target"
 		;;
 	--help | -h)
 		open_help
@@ -56,7 +56,7 @@ open_help() {
 	separator_section "Targets"
 	echo
 	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "core" "W8BDCR-Core-Termux documentation"
-	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "devcorex" "W8BDCR website"
+	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "w8bdcr" "W8BDCR website"
 	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "lang" "Language modules"
 	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "db" "Database modules"
 	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "ai" "AI tools"

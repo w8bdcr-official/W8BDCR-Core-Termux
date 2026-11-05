@@ -5,7 +5,7 @@ Modern Neovim configuration with preconfigured plugins
 **Package:** nvchad (configuration)  
 **Author:** W8BDCR  
 **Repository:** https://github.com/w8bdcr-official/W8BDCR-Core-Termux  
-**Official:** https://github.com/W8BDCROfficial/nvchad-termux  
+**Official:** https://github.com/w8bdcr-official/nvchad-termux  
 **Type:** Code editor configuration (git clone)  
 **License:** MIT
 
@@ -41,5 +41,5 @@ core update editor --nvchad
 - Installs to `~/.config/nvim/`
 - Includes GitHub Copilot and CodeCompanion
 - Preconfigured for TypeScript, JavaScript, Python, PHP, Perl, Rust, Lua
-- For detailed information: https://github.com/W8BDCROfficial/nvchad-termux
+- For detailed information: https://github.com/w8bdcr-official/nvchad-termux
 

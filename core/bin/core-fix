@@ -1,0 +1,64 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# core-fix — repairs a stuck or broken Core install without wiping your setup.
+# Re-creates the directories, re-links the `core` command, re-writes the
+# config, and re-syncs the repo from GitHub if the Core binary is missing.
+# Your installed tools and your config are kept.
+REPO="https://github.com/w8bdcr-official/W8BDCR-Core-Termux"
+BRANCH="main"
+PREFIX="${PREFIX:-/data/data/com.termux/files/usr}"
+CORE_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/core-termux"
+CORE_TOOL_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/core-termux-data"
+CORE_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/core-termux"
+CORE_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/core-termux"
+
+if [[ -f "$CORE_CONFIG/config" ]]; then
+  # shellcheck disable=SC1090
+  . "$CORE_CONFIG/config"
+  CORE_DATA="${core_data:-$CORE_DATA}"
+  CORE_TOOL_DATA="${core_tool_data:-$CORE_TOOL_DATA}"
+  CORE_CACHE="${core_cache:-$CORE_CACHE}"
+  CORE_CONFIG="${core_config:-$CORE_CONFIG}"
+fi
+
+fixed=()
+echo "Fixing Core..."
+
+mkdir -p "$CORE_DATA" "$CORE_TOOL_DATA" "$CORE_CACHE" "$CORE_CONFIG" && fixed+=("directories")
+
+if [[ ! -x "$CORE_DATA/core/bin/core" ]]; then
+  if [[ -d "$CORE_DATA/.git" ]]; then
+    echo "Core binary missing — re-syncing the repo..."
+    if git -C "$CORE_DATA" fetch --depth=1 origin "$BRANCH" &>/dev/null && git -C "$CORE_DATA" reset --hard "origin/$BRANCH" &>/dev/null; then
+      fixed+=("repo re-synced")
+    fi
+  else
+    echo "Core binary missing — re-cloning the repo..."
+    rm -rf "$CORE_DATA"
+    if git clone --depth=1 -b "$BRANCH" "$REPO" "$CORE_DATA" &>/dev/null; then
+      fixed+=("repo re-cloned")
+    fi
+  fi
+fi
+
+chmod +x "$CORE_DATA/core/bin/core" 2>/dev/null || true
+rm -f "$PREFIX/bin/core"
+ln -sf "$CORE_DATA/core/bin/core" "$PREFIX/bin/core" && fixed+=("core command re-linked")
+
+cat >"$CORE_CONFIG/config" <<EOF
+core_data='$CORE_DATA'
+core_cache='$CORE_CACHE'
+core_config='$CORE_CONFIG'
+core_source='$CORE_DATA'
+core_tool_data='$CORE_TOOL_DATA'
+EOF
+fixed+=("config re-written")
+
+if "$PREFIX/bin/core" --version >/dev/null 2>&1; then
+  echo "Fixed: ${fixed[*]}"
+  echo "Core is working again — run \`core-start\` (or \`core\`) to open it."
+else
+  echo "Still broken after: ${fixed[*]}"
+  echo "Re-run the full installer:"
+  echo '  curl -fsSL "https://raw.githubusercontent.com/w8bdcr-official/W8BDCR-Core-Termux/main/install.sh?$(date +%s)" | bash'
+  exit 1
+fi

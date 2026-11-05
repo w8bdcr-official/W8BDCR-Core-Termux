@@ -17,7 +17,7 @@ CORE_TOOL_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/core-termux-data"
 CORE_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/core-termux"
 CORE_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/core-termux"
 
-TOTAL_STEPS=6
+TOTAL_STEPS=7
 CURRENT_STEP=0
 
 _cols() {
@@ -250,8 +250,24 @@ create_symlink() {
   fi
 }
 
+create_shortcuts() {
+  log_step 5 "Creating shortcuts"
+
+  chmod +x "$CORE_DATA/core/bin/core-start" "$CORE_DATA/core/bin/core-fix"
+  cp -f "$CORE_DATA/core/bin/core-start" "$PREFIX/bin/core-start"
+  cp -f "$CORE_DATA/core/bin/core-fix" "$PREFIX/bin/core-fix"
+  chmod +x "$PREFIX/bin/core-start" "$PREFIX/bin/core-fix"
+
+  if [[ -x "$PREFIX/bin/core-start" ]] && [[ -x "$PREFIX/bin/core-fix" ]]; then
+    log_ok "Shortcuts created: core-start, core-fix"
+  else
+    log_fail "Failed to create shortcuts"
+    return 1
+  fi
+}
+
 save_config() {
-  log_step 5 "Saving configuration"
+  log_step 6 "Saving configuration"
 
   cat >"$CORE_CONFIG/config" <<EOF
 core_data='$CORE_DATA'
@@ -271,6 +287,9 @@ show_final_message() {
   separator
   echo
   echo -e "  ${P_DIM}Run${P_NC}  ${P_HL}core${P_NC}  ${P_DIM}to get started${P_NC}"
+  echo
+  echo -e "  ${P_DIM}Shortcut:${P_NC}  ${P_HL}core-start${P_NC}  ${P_DIM}— check the install, then open Core in one command${P_NC}"
+  echo -e "  ${P_DIM}Stuck?${P_NC}  ${P_HL}core-fix${P_NC}  ${P_DIM}— repairs a broken install without wiping your setup${P_NC}"
   echo
   echo -e "  ${P_DIM}Install modules:${P_NC}"
   echo
@@ -293,6 +312,7 @@ main() {
   setup_directories
   clone_repo
   create_symlink
+  create_shortcuts
   save_config
   show_final_message
 }
