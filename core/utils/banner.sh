@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 BANNER_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
-BANNER_FILE="$(cd "$BANNER_SCRIPT_DIR/../.." && pwd)/assets/banner/devcorex.txt"
+BANNER_FILE="$(cd "$BANNER_SCRIPT_DIR/../.." && pwd)/assets/banner/w8bdcr.txt"
 BANNER_VERSION="$(grep "^CORE_VERSION=" "$BANNER_SCRIPT_DIR/env.sh" 2>/dev/null | cut -d'"' -f2)"
 
 # ── Colors (self-contained for shell startup sourcing) ─────
@@ -35,7 +35,7 @@ CORE_TIPS=(
 	"Enable debug logs: ${D_CYAN}export CORE_DEBUG=1${NC}"
 	"Shell remembers your last directory — open Termux where you left off"
 	"Open framework docs: ${D_CYAN}core open core${NC}"
-	"Visit W8BDCR website: ${D_CYAN}core open devcorex${NC}"
+	"Visit W8BDCR website: ${D_CYAN}core open w8bdcr${NC}"
 
 	# ── Install / Update / Uninstall ─────────────────────────
 	"Install everything at once: ${D_CYAN}core install lang db dev npm${NC}"

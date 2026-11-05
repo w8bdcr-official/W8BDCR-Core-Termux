@@ -1,0 +1,76 @@
+<svg viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="W8BDCR Core AI agents: twenty-six agents in one selector">
+  <desc>All twenty-six AI agents as chips, wired into core install ai.</desc>
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.2" fill="#ffffff" fill-opacity="0.07"/>
+    </pattern>
+    <radialGradient id="glow" cx="62%" cy="38%" r="60%">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity="0.22"/>
+      <stop offset="55%" stop-color="#16a34a" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gradGreen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#86efac"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="520" fill="#0b0e14"/>
+  <rect width="1200" height="520" fill="url(#dots)"/>
+  <rect width="1200" height="520" fill="url(#glow)"/>
+  <text x="48" y="52" font-family="Consolas, 'Courier New', monospace" font-size="13" fill="#4ade80" letter-spacing="2.5">26 AI AGENTS · ONE SELECTOR</text>
+  <text x="1152" y="52" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#71717a" text-anchor="end" letter-spacing="1.5">core install ai</text>
+  <text x="48" y="104" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="36" fill="#e9edf3" font-weight="800">Pick one. Or install them all.</text>
+  <rect x="48" y="140" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="184" y="164" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">opencode</text>
+  <rect x="336" y="140" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="472" y="164" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">claude-code</text>
+  <rect x="624" y="140" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="760" y="164" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">kilocode-cli</text>
+  <rect x="912" y="140" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="1048" y="164" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">cline</text>
+  <rect x="48" y="188" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="184" y="212" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">antigravity-cli</text>
+  <rect x="336" y="188" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="472" y="212" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">codegraph</text>
+  <rect x="624" y="188" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="760" y="212" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">codex</text>
+  <rect x="912" y="188" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="1048" y="212" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">command-code</text>
+  <rect x="48" y="236" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="184" y="260" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">ctx7</text>
+  <rect x="336" y="236" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="472" y="260" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">engram</text>
+  <rect x="624" y="236" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="760" y="260" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">freebuff</text>
+  <rect x="912" y="236" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="1048" y="260" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">gemini-cli</text>
+  <rect x="48" y="284" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="184" y="308" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">gentle-ai</text>
+  <rect x="336" y="284" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="472" y="308" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">gga</text>
+  <rect x="624" y="284" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="760" y="308" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">hermes-agent</text>
+  <rect x="912" y="284" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="1048" y="308" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">kimchi</text>
+  <rect x="48" y="332" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="184" y="356" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">kimi-code</text>
+  <rect x="336" y="332" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="472" y="356" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">mimocode</text>
+  <rect x="624" y="332" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="760" y="356" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">minimax-cli</text>
+  <rect x="912" y="332" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="1048" y="356" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">mistral-vibe</text>
+  <rect x="48" y="380" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="184" y="404" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">ollama</text>
+  <rect x="336" y="380" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="472" y="404" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">openclaude</text>
+  <rect x="624" y="380" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="760" y="404" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">openclaw</text>
+  <rect x="912" y="380" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="1048" y="404" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">openspec</text>
+  <rect x="48" y="428" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="184" y="452" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">pi</text>
+  <rect x="336" y="428" width="272" height="38" rx="10" fill="#0b0e14" stroke="#22c55e" stroke-opacity="0.35"/>
+  <text x="472" y="452" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#e9edf3" font-weight="700" text-anchor="middle">qwen-code</text>
+  <text x="48" y="496" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="14" fill="#8b949e">Every agent above is reachable: core install ai --&lt;flag&gt; — nothing is orphaned.</text>
+</svg>

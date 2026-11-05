@@ -1,0 +1,26 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# opencode-start — start the OpenCode server (if needed) and attach the TUI.
+# Same flow as a bare `opencode` launch; this is the explicit entry point.
+# Usage: opencode-start
+
+OPENCODE_SERVE_URL="http://127.0.0.1:4096"
+
+if ! curl -s -m 2 -o /dev/null "$OPENCODE_SERVE_URL/" 2>/dev/null; then
+  echo "Starting OpenCode server on 127.0.0.1:4096 ..."
+  proot-distro login --shared-tmp ubuntu -- /bin/bash -c \
+    'nohup /root/.opencode/bin/opencode serve --port 4096 --hostname 127.0.0.1 > /root/.opencode/serve.log 2>&1 &'
+  for _i in $(seq 1 15); do
+    if curl -s -m 2 -o /dev/null "$OPENCODE_SERVE_URL/" 2>/dev/null; then
+      break
+    fi
+    sleep 1
+  done
+fi
+
+if ! curl -s -m 2 -o /dev/null "$OPENCODE_SERVE_URL/" 2>/dev/null; then
+  echo "OpenCode server did not start — see /root/.opencode/serve.log inside Ubuntu, or run: opencode-fix" >&2
+  exit 1
+fi
+
+echo "OpenCode server is up at $OPENCODE_SERVE_URL — attaching TUI ..."
+exec opencode attach "$OPENCODE_SERVE_URL" "$@"
