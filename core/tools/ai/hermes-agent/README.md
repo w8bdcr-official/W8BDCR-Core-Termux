@@ -45,6 +45,6 @@ core update ai --hermes-agent
 
 # Notes
 
-- Installed with the W8BDCR Hermes-Own installer (Python 3.14+, Pillow override, ruamel.yaml fix): https://github.com/w8bdcr-official/W8BDCR-Hermes-Own
-- Command: `hermes` (any `hermes` command auto-starts the gateway; `hermes-start` starts gateway + chat in one; `hermes-fix` repairs the setup)
+- Installed using the official installer via: `curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash`
+- Command: `hermes`
 - Requires configuration for optimal performance

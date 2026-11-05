@@ -6,7 +6,7 @@ Provider-agnostic AI code review on every commit
 **Author:** Gentleman-Programming  
 **Repository:** https://github.com/w8bdcr-official/W8BDCR-Core-Termux  
 **Official:** https://github.com/Gentleman-Programming/gentleman-guardian-angel  
-**Termux fork:** https://github.com/w8bdcr-official/gga-termux  
+**Termux fork:** https://github.com/W8BDCROfficial/gga-termux  
 **Type:** AI code review CLI (Pure Bash)  
 **License:** MIT
 

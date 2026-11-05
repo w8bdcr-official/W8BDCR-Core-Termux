@@ -5,8 +5,6 @@ import "@/utils/colors"
 
 LOG_FILE="$CORE_CACHE/install_ai.log"
 OPENCODE_DATA_DIR="$HOME/.local/share/core-termux-data/opencode"
-# Proot installs pin to this OpenCode release (v1 line, verified on GitHub).
-OPENCODE_PINNED_VERSION="v1.19.5"
 
 _opencode_detect_ubuntu_root() {
   # 1. Fast direct path checks (0ms)
@@ -279,7 +277,6 @@ _install_opencode_native() {
 _install_opencode_proot() {
   loading "Installing OpenCode (proot-distro)" _install_opencode_proot_impl || return 1
   log_info "To run OpenCode, use command: ${D_CYAN}opencode${NC}"
-  log_info "Server + TUI in one step: ${D_CYAN}opencode-start${NC} — repair with: ${D_CYAN}opencode-fix${NC}"
   return 0
 }
 
@@ -309,27 +306,14 @@ _install_opencode_proot_impl() {
   fi
 
   _opencode_proot_ubuntu /bin/bash -c \
-    'apt-get update && apt-get upgrade -y && apt-get install -y curl ca-certificates ripgrep' \
+    'apt-get update && apt-get upgrade -y && apt-get install -y curl ca-certificates' \
     &>>"$LOG_FILE"
 
-  # Pinned release (v1.19.5, linux-arm64/x64) instead of the rolling install
-  # script, so every install gets the same tested binary.
   _opencode_proot_ubuntu /bin/bash -c '
 		export SHELL=/bin/bash
 		export TMPDIR=/tmp
 		export HOME=/root
-		set -e
-		case "$(uname -m)" in
-		  aarch64|arm64) _arch="arm64" ;;
-		  x86_64|amd64) _arch="x64" ;;
-		  *) echo "Unsupported architecture: $(uname -m)" >&2; exit 1 ;;
-		esac
-		mkdir -p /root/.opencode/bin
-		cd /root/.opencode/bin
-		curl -fL --retry 3 --retry-delay 2 "https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-linux-${_arch}.tar.gz" -o opencode.tar.gz
-		tar -zxf opencode.tar.gz
-		rm -f opencode.tar.gz
-		chmod +x /root/.opencode/bin/opencode
+		curl -fsSL https://opencode.ai/install | bash -s -- --no-modify-path
 	' &>>"$LOG_FILE"
 
   local opencode_bin="$ubuntu_root/root/.opencode/bin/opencode"
@@ -351,16 +335,6 @@ _install_opencode_proot_impl() {
     printf '\n# opencode\nexport PATH=/root/.opencode/bin:$PATH\n' >>"$ubuntu_root/root/.bashrc"
   fi
 
-  # Install the proot helper commands (server start + repair).
-  local helper helper_src
-  for helper in opencode-start opencode-fix; do
-    helper_src="$CORE_PATH/tools/ai/opencode/bin/$helper"
-    if [ -f "$helper_src" ]; then
-      cp "$helper_src" "$PREFIX/bin/$helper"
-      chmod +x "$PREFIX/bin/$helper"
-    fi
-  done
-
   # Forward ~/.opencode/bin/opencode to $PREFIX/bin/opencode for active terminal sessions
   mkdir -p "$HOME/.opencode/bin" 2>/dev/null || true
   ln -sf "$PREFIX/bin/opencode" "$HOME/.opencode/bin/opencode" 2>/dev/null || true
@@ -381,15 +355,15 @@ install_opencode() {
   log_info "Select installation method for OpenCode:"
 
   read_select "Installation method" SELECTED_METHOD \
-    "Proot-distro (recommended) - Ubuntu container, the working path on Termux" \
-    "Native - Direct glibc (does NOT work on stock Termux, kept for reference)"
+    "Native (recommended) - Direct glibc, fastest, zero lag, runs anywhere" \
+    "Proot-distro (alternative) - Ubuntu container"
 
   case "$SELECTED_METHOD" in
-  *Native*)
-    _install_opencode_native
-    ;;
-  *Proot-distro*|*)
+  *Proot-distro*)
     _install_opencode_proot
+    ;;
+  *Native*|*)
+    _install_opencode_native
     ;;
   esac
 }
@@ -439,23 +413,11 @@ update_opencode() {
 _update_opencode_proot_impl() {
   _opencode_proot_ubuntu /bin/bash -c 'rm -rf /root/.opencode' &>>"$LOG_FILE"
 
-  # Reinstall the pinned release (same as the proot install path).
   _opencode_proot_ubuntu /bin/bash -c '
 		export SHELL=/bin/bash
 		export TMPDIR=/tmp
 		export HOME=/root
-		set -e
-		case "$(uname -m)" in
-		  aarch64|arm64) _arch="arm64" ;;
-		  x86_64|amd64) _arch="x64" ;;
-		  *) echo "Unsupported architecture: $(uname -m)" >&2; exit 1 ;;
-		esac
-		mkdir -p /root/.opencode/bin
-		cd /root/.opencode/bin
-		curl -fL --retry 3 --retry-delay 2 "https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-linux-${_arch}.tar.gz" -o opencode.tar.gz
-		tar -zxf opencode.tar.gz
-		rm -f opencode.tar.gz
-		chmod +x /root/.opencode/bin/opencode
+		curl -fsSL https://opencode.ai/install | bash -s -- --no-modify-path
 	' &>>"$LOG_FILE"
 
   local ubuntu_root

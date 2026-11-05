@@ -4,16 +4,12 @@ import "@/utils/log"
 
 LOG_FILE="$CORE_CACHE/install_ai.log"
 
-_install_hermes_agent_own() {
-  loading "Installing Hermes Agent" _install_hermes_agent_own_impl
+_install_hermes_agent_curl() {
+  loading "Installing Hermes Agent" _install_hermes_agent_curl_impl
 }
 
-_install_hermes_agent_own_impl() {
-  # W8BDCR Hermes-Own installer. Upstream's bare curl install does not work
-  # on Termux: it needs Python 3.14+, a Pillow version override and the
-  # ruamel.yaml fix — all handled by our installer.
-  local installer_url="https://raw.githubusercontent.com/w8bdcr-official/W8BDCR-Hermes-Own/main/install.sh"
-  if ! curl -fsSL "$installer_url" | bash; then
+_install_hermes_agent_curl_impl() {
+  if ! curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash; then
     log_error "Failed to install Hermes Agent"
     return 1
   fi
@@ -31,7 +27,7 @@ install_hermes_agent() {
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
-  _install_hermes_agent_own || return 1
+  _install_hermes_agent_curl || return 1
 
   log_success "Hermes Agent installed successfully"
   return 0

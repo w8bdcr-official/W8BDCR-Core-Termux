@@ -31,7 +31,7 @@ voice_help() {
 	echo
 	list_item "Termux:API package: ${D_CYAN}pkg install termux-api${NC}"
 	list_item "Neovim for editing: ${D_CYAN}core install editor${NC}"
-	list_item "Termux:API app: ${D_CYAN}https://f-droid.org/packages/com.termux.api/${NC}"
+	list_item "Termux:API app: ${D_CYAN}https://devcorex-web.vercel.app/termux/api${NC}"
 	echo
 }
 
@@ -47,7 +47,7 @@ voice_main() {
 	if ! command -v termux-dialog &>/dev/null; then
 		log_error "Termux:API is not installed"
 		list_item "Install the package: ${D_CYAN}pkg install termux-api${NC}"
-		list_item "Install the app from: https://f-droid.org/packages/com.termux.api/"
+		list_item "Install the app from: https://devcorex-web.vercel.app/termux/api"
 		separator
 		exit 1
 	fi

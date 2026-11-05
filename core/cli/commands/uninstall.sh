@@ -100,7 +100,6 @@ _uninstall_core_system() {
   echo
 
   rm -f "$PREFIX/bin/core"
-  rm -f "$PREFIX/bin/core-start" "$PREFIX/bin/core-fix"
   rm -rf "$HOME/.local/share/core-termux"
   rm -rf "$HOME/.local/share/core-termux-data"
   rm -rf "$HOME/.cache/core-termux"
@@ -138,94 +137,6 @@ _uninstall_specific_tools() {
         ;;
       cline)
         uninstall_cline
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      antigravity-cli)
-        uninstall_antigravity_cli
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      codegraph)
-        uninstall_codegraph
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      codex)
-        uninstall_codex
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      command-code)
-        uninstall_command_code
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      ctx7)
-        uninstall_ctx7
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      engram)
-        uninstall_engram
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      freebuff)
-        uninstall_freebuff
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      gemini-cli)
-        uninstall_gemini_cli
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      gentle-ai)
-        uninstall_gentle_ai
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      gga)
-        uninstall_gga
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      hermes-agent)
-        uninstall_hermes_agent
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      kimchi)
-        uninstall_kimchi
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      kimi-code)
-        uninstall_kimi_code
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      mimocode)
-        uninstall_mimocode
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      minimax-cli)
-        uninstall_minimax_cli
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      mistral-vibe)
-        uninstall_mistral_vibe
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      ollama)
-        uninstall_ollama
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      openclaude)
-        uninstall_openclaude
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      openclaw)
-        uninstall_openclaw
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      openspec)
-        uninstall_openspec
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      pi)
-        uninstall_pi
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-      qwen-code)
-        uninstall_qwen_code
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
         ;;
       *)

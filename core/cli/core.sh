@@ -34,7 +34,7 @@ core_main() {
 
 core_help() {
   echo
-  box "◈ W8BDCR-CORE-TERMUX v${CORE_VERSION} ◈"
+  box "◈ W8BDCR-CORE-TERMUX-MODED v${CORE_VERSION} ◈"
   echo
   log_info "Usage: core <command> [options]"
   echo
@@ -79,6 +79,6 @@ core_help() {
   echo
   list_item "Run ${D_CYAN}core <command>${NC} for command-specific help"
   list_item "Example: ${D_CYAN}core pg${NC}, ${D_CYAN}core init${NC}"
-  list_item "Docs: ${D_CYAN}core open${NC} — https://github.com/w8bdcr-official/W8BDCR-Core-Termux"
+  list_item "Docs: ${D_CYAN}core open${NC} — https://devcorex-web.vercel.app"
   echo
 }

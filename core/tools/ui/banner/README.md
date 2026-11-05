@@ -36,7 +36,7 @@ core update ui --banner
 
 ## Notes
 
-- Source file: `~/.local/share/core-termux/assets/banner/w8bdcr.txt`
+- Source file: `~/.local/share/core-termux/assets/banner/devcorex.txt`
 - removes Termux welcome message: motd
 - Restart Termux to apply changes
 

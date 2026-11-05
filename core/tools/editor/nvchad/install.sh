@@ -3,7 +3,7 @@
 import "@/utils/log"
 
 LOG_FILE="$CORE_CACHE/install_editor.log"
-NVCHAD_REPO="https://github.com/w8bdcr-official/nvchad-termux.git"
+NVCHAD_REPO="https://github.com/W8BDCROfficial/nvchad-termux.git"
 NVCHAD_DIR="$CORE_DATA/nvchad-termux"
 
 _nvchad_dependencies() {

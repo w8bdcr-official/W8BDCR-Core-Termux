@@ -16,7 +16,7 @@ install_main() {
     echo
     list_item "lang       - Language packages (Node.js, Python, Perl, PHP, Rust, C, C++, Go)"
     list_item "db         - Databases (PostgreSQL, MariaDB, SQLite, MongoDB)"
-    list_item "ai         - AI tools (26 agents incl. OpenCode, Claude Code, Gemini CLI, Ollama)"
+    list_item "ai         - AI tools (Claude Code, OpenCode, Kilo Code CLI, Cline)"
     list_item "editor     - Code editor (Neovim + NvChad)"
     list_item "dev        - Development tools"
     list_item "npm        - Node.js global modules (npm packages)"
@@ -142,94 +142,6 @@ _install_specific_tools() {
         ;;
       cline)
         install_cline
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      antigravity-cli)
-        install_antigravity_cli
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      codegraph)
-        install_codegraph
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      codex)
-        install_codex
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      command-code)
-        install_command_code
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      ctx7)
-        install_ctx7
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      engram)
-        install_engram
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      freebuff)
-        install_freebuff
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      gemini-cli)
-        install_gemini_cli
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      gentle-ai)
-        install_gentle_ai
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      gga)
-        install_gga
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      hermes-agent)
-        install_hermes_agent
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      kimchi)
-        install_kimchi
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      kimi-code)
-        install_kimi_code
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      mimocode)
-        install_mimocode
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      minimax-cli)
-        install_minimax_cli
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      mistral-vibe)
-        install_mistral_vibe
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      ollama)
-        install_ollama
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      openclaude)
-        install_openclaude
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      openclaw)
-        install_openclaw
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      openspec)
-        install_openspec
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      pi)
-        install_pi
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      qwen-code)
-        install_qwen_code
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
       *)
