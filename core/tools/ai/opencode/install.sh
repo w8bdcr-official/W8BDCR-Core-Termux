@@ -381,15 +381,15 @@ install_opencode() {
   log_info "Select installation method for OpenCode:"
 
   read_select "Installation method" SELECTED_METHOD \
-    "Proot-distro (recommended) - Ubuntu container, the working path on Termux" \
-    "Native - Direct glibc (does NOT work on stock Termux, kept for reference)"
+    "Native (recommended) - Direct glibc, verified working on phone 2026-11-06" \
+    "Proot-distro - Ubuntu container, the alternative on Termux"
 
   case "$SELECTED_METHOD" in
-  *Native*)
-    _install_opencode_native
-    ;;
-  *Proot-distro*|*)
+  *Proot-distro*)
     _install_opencode_proot
+    ;;
+  *)
+    _install_opencode_native
     ;;
   esac
 }

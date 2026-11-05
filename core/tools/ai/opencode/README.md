@@ -6,17 +6,17 @@ Open-source agent that helps you write code in your terminal
 **Author:** W8BDCR  
 **Repository:** https://github.com/w8bdcr-official/W8BDCR-Core-Termux  
 **Official:** https://github.com/anomalyco/opencode  
-**Type:** AI coding agent (proot Ubuntu container, pinned v1.19.5 binary)  
+**Type:** AI coding agent (native on Termux, pinned v1.19.5 binary)  
 **License:** MIT
 
 ## Description
 
-OpenCode is an AI-powered coding agent developed by anomalyco that operates directly in your terminal. It provides intelligent code completion, refactoring suggestions, and natural language code generation. W8BDCR-Core-Termux installs OpenCode in a proot Ubuntu container (pinned v1.19.5 — the working path on Termux). The native glibc mode is kept in the installer for reference, but it does NOT work on stock Termux (the glibc binary is rejected), so pick Proot-distro at install time.
+OpenCode is an AI-powered coding agent developed by anomalyco that operates directly in your terminal. It provides intelligent code completion, refactoring suggestions, and natural language code generation. W8BDCR-Core-Termux installs OpenCode natively on stock Termux (pinned v1.19.5 — verified working on phone 2026-11-06), or in a proot Ubuntu container if you pick Proot-distro at install time.
 
 ## Dependencies
 
-- **Proot mode (recommended):** proot-distro, curl, ca-certificates, ripgrep
-- **Native mode (kept, does not work on stock Termux):** glibc-repo, glibc, clang, git, ripgrep, python, jq, nodejs-lts, curl, tar
+- **Native mode (recommended, verified working on phone):** glibc-repo, glibc, clang, git, ripgrep, python, jq, nodejs-lts, curl, tar
+- **Proot mode (alternative):** proot-distro, curl, ca-certificates, ripgrep
 
 ## Install
 
@@ -26,9 +26,9 @@ core install ai --opencode
 
 You will be prompted to choose:
 
-**Proot-distro (recommended)** — Ubuntu container, pinned OpenCode v1.19.5, ripgrep included
+**Native (recommended)** — Compiles a glibc bootstrapper and downloads the pinned OpenCode v1.19.5 binary from GitHub releases (verified working on phone 2026-11-06)
 
-**Native** — Compiles a glibc bootstrapper and downloads the latest OpenCode binary from GitHub releases (does NOT work on stock Termux — kept for reference)
+**Proot-distro** — Ubuntu container, pinned OpenCode v1.19.5, ripgrep included
 
 ## Server commands
 
@@ -64,8 +64,8 @@ core update ai --opencode
 ## Notes
 
 - **Proot mode** installs pinned OpenCode v1.19.5 inside the Ubuntu container (`/root/.opencode/bin/opencode`); ripgrep is installed via apt upfront
-- **Native mode** requires `glibc-repo`, `glibc`, `clang`, and other dependencies (installed automatically) — but it does NOT work on stock Termux
+- **Native mode** requires `glibc-repo`, `glibc`, `clang`, and other dependencies (installed automatically)
 - The native binary is stored in `~/.local/share/core-termux-data/opencode/`
 - A small C bootstrapper (`opencode_helper.c`) handles ELF loading via the glibc dynamic linker (native mode only)
-- The server log lives inside Ubuntu at `/root/.opencode/serve.log`
+- The server log lives inside Ubuntu at `/root/.opencode/serve.log` (proot mode)
 - Data directory: `~/.local/share/core-termux-data/opencode/`

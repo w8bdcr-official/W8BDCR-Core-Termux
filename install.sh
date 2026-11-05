@@ -167,8 +167,40 @@ bootstrap_dependencies() {
   fi
 }
 
+setup_permissions() {
+  log_step 1 "Setting up permissions"
+
+  # Storage access — Termux only. On plain Linux this step is skipped.
+  if [ -d "/data/data/com.termux" ] || [ -n "$TERMUX_VERSION" ]; then
+    if [ -d "$HOME/storage" ] && [ -w "$HOME/storage" ]; then
+      log_ok "Storage access already granted"
+    elif command -v termux-setup-storage &>/dev/null; then
+      log_info "Requesting storage access — tap Allow on the popup..."
+      termux-setup-storage
+      local waited=0
+      while [ $waited -lt 15 ]; do
+        if [ -d "$HOME/storage" ] && [ -w "$HOME/storage" ]; then
+          break
+        fi
+        sleep 3
+        waited=$((waited + 3))
+      done
+      if [ -d "$HOME/storage" ] && [ -w "$HOME/storage" ]; then
+        log_ok "Storage access granted"
+      else
+        log_warn "Storage access not granted yet — run: termux-setup-storage (then tap Allow)"
+      fi
+    else
+      log_warn "termux-setup-storage not found — run it once in Termux and tap Allow"
+    fi
+    echo -e "  ${P_DIM}Tip:${P_NC} keep Core's servers alive — Settings → Apps → Termux → Battery → Unrestricted"
+  else
+    log_info "Not Termux — no Android permissions needed"
+  fi
+}
+
 install_dependencies() {
-  log_step 1 "Verifying dependencies"
+  log_step 2 "Verifying dependencies"
   progress_bar 5 10
   progress_bar 10 10
   echo
@@ -176,7 +208,7 @@ install_dependencies() {
 }
 
 setup_directories() {
-  log_step 2 "Setting up directories"
+  log_step 3 "Setting up directories"
 
   mkdir -p "$CORE_DATA" "$CORE_TOOL_DATA" "$CORE_CACHE" "$CORE_CONFIG"
 
@@ -188,7 +220,7 @@ setup_directories() {
 }
 
 clone_repo() {
-  log_step 3 "Cloning repository"
+  log_step 4 "Cloning repository"
 
   local script_dir
   script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -233,7 +265,7 @@ clone_repo() {
 }
 
 create_symlink() {
-  log_step 4 "Creating core command"
+  log_step 5 "Creating core command"
 
   chmod +x "$CORE_DATA/core/bin/core"
   find "$CORE_DATA/core" -type f -name "*.sh" -exec chmod +x {} \; 2>/dev/null || true
@@ -251,7 +283,7 @@ create_symlink() {
 }
 
 create_shortcuts() {
-  log_step 5 "Creating shortcuts"
+  log_step 6 "Creating shortcuts"
 
   chmod +x "$CORE_DATA/core/bin/core-start" "$CORE_DATA/core/bin/core-fix"
   cp -f "$CORE_DATA/core/bin/core-start" "$PREFIX/bin/core-start"
@@ -267,7 +299,7 @@ create_shortcuts() {
 }
 
 save_config() {
-  log_step 6 "Saving configuration"
+  log_step 7 "Saving configuration"
 
   cat >"$CORE_CONFIG/config" <<EOF
 core_data='$CORE_DATA'
@@ -308,6 +340,7 @@ show_final_message() {
 main() {
   bootstrap_dependencies
   banner
+  setup_permissions
   install_dependencies
   setup_directories
   clone_repo

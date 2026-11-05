@@ -41,7 +41,7 @@ Questions, provider tips, roadmap & support → [@BDCRTEAM](https://t.me/BDCRTEA
 |  | Upstream | **W8BDCR Core** |
 |---|---|---|
 | 🤖 AI tools in the selector | 4 of 26 wired | **All 26 wired — nothing orphaned** |
-| 🧩 OpenCode install | Native "recommended" | **Proot Ubuntu, pinned v1.19.5 — the working path** |
+| 🧩 OpenCode install | Native "recommended" | **Native, pinned v1.19.5 — verified working on phone** |
 | 🐍 Hermes install | Bare curl | **Hermes-Own installer — Python 3.14, Pillow, ruamel.yaml fixes** |
 | 🔄 Update check | Dead "Moded" URL (404) | **Fixed — points at this repo** |
 | 🎯 AI selector | 3 tools silently installed nothing | **Fixed — all 26 dispatch** |
@@ -95,7 +95,7 @@ No corporate backers yet — this project is kept free by W8BDCR. The friends th
       <img src="https://img.shields.io/badge-Flagship_Agent-22c55e?style=flat-square" alt="Flagship Agent">
     </td>
     <td>
-      Thanks to the <b>OpenCode</b> team for the open-source agent that runs as its own server on your phone — pinned v1.19.5 inside proot Ubuntu, with <code>opencode-start</code> and auto-start on any <code>opencode</code> command.
+      Thanks to the <b>OpenCode</b> team for the open-source agent that runs as its own server on your phone — pinned v1.19.5 running natively, with <code>opencode-start</code> and auto-start on any <code>opencode</code> command.
     </td>
   </tr>
   <tr>
@@ -197,7 +197,7 @@ That is the output of `core --version` — the installed version of W8BDCR-Core-
 Recent highlights from the W8BDCR adaptation. Full history in the repo.
 
 - **🤖 All 26 AI agents wired** — the upstream selector only reached 4 of them; the other 22 installers existed but were unreachable. Now every agent is reachable via `core install ai` or its `--flag`.
-- **🧩 OpenCode, proot only** — pinned v1.19.5 linux-arm64 inside proot Ubuntu. The upstream "Native (recommended)" mode is broken on stock Termux (glibc ELF / non-PIE rejection) — it stays in the file as a labeled non-default, and the installer steers you to proot.
+- **🧩 OpenCode, native works** — pinned v1.19.5 linux-arm64. Native mode runs on stock Termux (verified on phone 2026-11-06: `opencode --version` → 1.19.5, TUI answers) — it is now the recommended install; Proot-distro inside Ubuntu stays as the alternative.
 - **🚀 `opencode-start` and `opencode-fix` (new)** — `opencode-start` starts the server and attaches the TUI; a bare `opencode` launch auto-starts the server the same way (same pattern as the Hermes gateway); `opencode-fix` reinstalls the pinned binary and restarts the server.
 - **🚀 `core-start` and `core-fix` (new — phone test pending)** — `core-start` runs Core from one small command (checks the install, then opens the selector), and `core-fix` repairs a stuck install — re-links the command, re-writes the config, re-syncs the repo — without wiping your tools or config.
 - **🐍 Hermes via Hermes-Own** — installed through the working W8BDCR Hermes-Own installer (Python 3.14+, Pillow override, ruamel.yaml fix), not upstream's bare curl.
@@ -267,7 +267,7 @@ One selector — 26 agents in the install list and 9 modules built in.
 
 | Agent | Why it's unique | Best for |
 |---|---|---|
-| `opencode` (OpenCode) | Own server on your phone, pinned v1.19.5 in proot Ubuntu, auto-start on any `opencode` command | Free coding, server-first work |
+| `opencode` (OpenCode) | Own server on your phone, pinned v1.19.5 running natively, auto-start on any `opencode` command | Free coding, server-first work |
 | `hermes-agent` (Hermes) | Installed via the working Hermes-Own installer — Python 3.14, Pillow override, ruamel.yaml fix | Self-improving agent, gateway |
 | OpenRouter `:free` model | `nvidia/nemotron-3-ultra-550b-a55b:free` via env var — the model the OpenCode setup uses | Free chat, coding, no card |
 
@@ -275,7 +275,7 @@ One selector — 26 agents in the install list and 9 modules built in.
 
 ### 🧩 OpenCode — the flagship agent
 
-OpenCode runs as its **own server on your phone**. Install it with `core install ai --opencode` and pick Proot-distro — pinned v1.19.5, linux-arm64, inside proot Ubuntu. The native glibc mode is kept in the installer for reference, but it does NOT work on stock Termux, so pick Proot-distro at install time.
+OpenCode runs as its **own server on your phone**. Install it with `core install ai --opencode` and pick Native — pinned v1.19.5, linux-arm64, verified working on phone (2026-11-06). Proot-distro inside Ubuntu stays as the alternative.
 
 After install, set up the provider once, from the repo root:
 
@@ -521,7 +521,14 @@ Full status table → `All Tools` above.
 | **Other Linux** | ⚠️ Partial | Most modules work; some Termux-specific UI parts do not apply |
 | **macOS / Windows** | ❌ Not supported | Use Termux on Android or a Linux machine |
 
-Minimum: Termux on Android with storage permission. OpenCode needs proot Ubuntu (installed by its installer) and works best with 6 GB RAM or more.
+Minimum: Termux on Android with storage permission (the installer requests it for you). OpenCode runs natively (Proot-distro inside Ubuntu stays as the alternative) and works best with 6 GB RAM or more.
+
+## 🔐 Permissions — two taps, then install
+
+1. **Storage** — the installer runs `termux-setup-storage` and Android asks for access. Tap **Allow** on the popup. If the popup does not appear, run `termux-setup-storage` yourself and tap Allow.
+2. **Battery** — Android Settings → Apps → Termux → Battery → **Unrestricted**. Without this, Android stops the OpenCode and Hermes servers when Termux goes to the background.
+
+No root, no other permission. The installer checks storage itself and tells you if it is still missing.
 
 ### 🧩 New: Core inside your own OmniRoute gateway
 
@@ -595,7 +602,7 @@ Three steps. After setup, just use it — `core` opens the selector, and every m
 curl -fsSL "https://raw.githubusercontent.com/w8bdcr-official/W8BDCR-Core-Termux/main/install.sh?$(date +%s)" | bash
 ```
 
-> 💡 Tip: on Termux, run `termux-setup-storage` first so Core can reach your storage.
+> 💡 The installer asks for storage access itself — tap Allow on the popup. See Permissions above if it does not appear.
 
 ### Option 2 — Clone manually
 
@@ -618,7 +625,7 @@ core
 ### ⚙️ Essential commands
 
 ```
-core install ai --opencode # Install OpenCode (AI agent, proot Ubuntu)
+core install ai --opencode # Install OpenCode (AI agent, native)
 core install ai --hermes-agent # Install Hermes Agent
 core install ai # Interactive AI agent selector
 core install lang --nodejs # Install Node.js
@@ -731,7 +738,7 @@ The fastest way to see Core is to run it: `core` opens the selector, and every m
 |---|---|
 | Shell | Bash — the `core` dispatcher and every installer |
 | Runtime | Termux on Android; Ubuntu / Debian on Linux |
-| AI agents | OpenCode (proot Ubuntu, pinned v1.19.5), Hermes (Python 3.14), 24 more |
+| AI agents | OpenCode (native, pinned v1.19.5), Hermes (Python 3.14), 24 more |
 | Gateway | OmniRoute on `http://localhost:20128/v1` (local) |
 | Editor | Neovim + NvChad |
 | Shell UI | ZSH + Oh My Zsh + Powerlevel10k |
@@ -793,7 +800,7 @@ W8BDCR-Core-Termux/
 ### 🧠 Who Powers Core
 
 - **Upstream framework** — the open-source modular dev environment this repo adapts (MIT — copyright retained in LICENSE).
-- **W8BDCR adaptation** — install URL, branding, OpenCode proot fix, Hermes-Own installer, selector fix, update-check fix.
+- **W8BDCR adaptation** — install URL, branding, OpenCode native fix, Hermes-Own installer, selector fix, update-check fix.
 - **OpenCode** — the agentic coding agent, pinned v1.19.5.
 - **Hermes** — the W8BDCR Hermes-Own agent.
 - **OmniRoute** — the local gateway at `http://localhost:20128/v1`.
@@ -855,7 +862,7 @@ Log functions, loading spinner, separators, boxes and tables are shared helpers 
 - **Permissions:** Ensure you have write permissions in the installation directory
 - **Connection:** Some installations require internet connection
 - **Logs:** Check `~/.cache/core-termux/` if something fails
-- **Proot for OpenCode.** OpenCode only runs inside proot Ubuntu on Termux — the installer sets it up; the native path is not the default and does not work on stock Termux.
+- **Native OpenCode.** OpenCode runs natively on stock Termux (verified on phone 2026-11-06) — pick Native at install time; Proot-distro inside Ubuntu stays as the alternative.
 - **RAM.** OpenCode works best with 6 GB RAM or more. On smaller phones it still runs, but slowly.
 - **Keys.** Never paste a full API key into chat or a shared file. `core env` stores keys in `~/.zshrc` on your phone only.
 
