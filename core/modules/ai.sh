@@ -2,6 +2,7 @@
 
 import "@/utils/log"
 import "@/utils/colors"
+import "@/utils/resume"
 
 LOG_FILE="$CORE_CACHE/install_ai.log"
 
@@ -165,11 +166,16 @@ install_ai() {
 
 _install_selected_ai_tool() {
   import "@/tools/ai/all"
+  resume_checkpoint_tool_start "$1"
   _install_ai_tool "$1"
   local rc=$?
 
   if [[ $rc -eq 2 ]]; then
     return 0
+  fi
+
+  if (( rc == 0 )); then
+    resume_checkpoint_tool_done "$1"
   fi
 
   return $rc

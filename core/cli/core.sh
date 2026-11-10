@@ -48,6 +48,7 @@ core_help() {
   printf "    ${D_CYAN}%-12s${NC} %s\n" "update" "Update modules or tools"
   printf "    ${D_CYAN}%-12s${NC} %s\n" "uninstall" "Remove modules or W8BDCR-Core completely"
   printf "    ${D_CYAN}%-12s${NC} %s\n" "reinstall" "Uninstall + install modules"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "resume" "Pick up after a power cut — restart services, continue install"
   printf "    ${D_CYAN}%-12s${NC} %s\n" "open" "Open documentation in browser"
   printf "    ${D_CYAN}%-12s${NC} %s\n" "list" "List available tools in modules"
   printf "    ${D_CYAN}%-12s${NC} %s\n" "pg" "PostgreSQL database manager"
@@ -59,6 +60,7 @@ core_help() {
   list_item "Run: ${D_CYAN}core${NC} to see available commands"
   list_item "Run: ${D_CYAN}core open${NC} for official documentation"
   list_item "Run: ${D_CYAN}core install <module>${NC} to install modules"
+  list_item "Power cut? Run: ${D_CYAN}core resume${NC} — picks up where you left off"
   echo
   separator_section "Module Targets"
   echo

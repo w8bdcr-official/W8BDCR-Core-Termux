@@ -2,6 +2,7 @@
 
 import "@/utils/log"
 import "@/utils/colors"
+import "@/utils/resume"
 
 install_main() {
 
@@ -57,13 +58,24 @@ install_main() {
     return 1
   fi
 
+  # Resume checkpoint: record this install before it starts, so a power cut
+  # or a killed Termux can continue it from here instead of starting over.
+  resume_checkpoint_install_start "$module_target" "${tool_flags[@]}"
+
   # If no tool flags, install entire module (original behavior)
+  local _install_rc=0
   if [[ ${#tool_flags[@]} -eq 0 ]]; then
     _install_full_module "$module_target"
+    _install_rc=$?
   else
     # Install specific tools
     _install_specific_tools "$module_target" "${tool_flags[@]}"
+    _install_rc=$?
   fi
+  if (( _install_rc == 0 )); then
+    resume_checkpoint_install_done
+  fi
+  return $_install_rc
 }
 
 # Install entire module (original behavior)
@@ -119,6 +131,7 @@ _install_specific_tools() {
   local module="$1"
   shift
   local -a tools=("$@")
+  local _resume_before=0
 
   case "$module" in
   ai)
@@ -127,6 +140,8 @@ _install_specific_tools() {
     local failed_count=0
 
     for tool in "${tools[@]}"; do
+      _resume_before=$installed_count
+      resume_checkpoint_tool_start "$tool"
       case "$tool" in
       claude-code)
         install_claude_code
@@ -236,6 +251,7 @@ _install_specific_tools() {
         log_warn "Unknown AI tool: --$tool"
         ;;
       esac
+      if (( installed_count > _resume_before )); then resume_checkpoint_tool_done "$tool"; fi
     done
 
     echo
@@ -252,6 +268,8 @@ _install_specific_tools() {
     local failed_count=0
 
     for tool in "${tools[@]}"; do
+      _resume_before=$installed_count
+      resume_checkpoint_tool_start "$tool"
       case "$tool" in
       postgresql)
         install_postgresql
@@ -273,6 +291,7 @@ _install_specific_tools() {
         log_warn "Unknown database: --$tool"
         ;;
       esac
+      if (( installed_count > _resume_before )); then resume_checkpoint_tool_done "$tool"; fi
     done
 
     echo
@@ -290,6 +309,8 @@ _install_specific_tools() {
     local failed_count=0
 
     for tool in "${tools[@]}"; do
+      _resume_before=$installed_count
+      resume_checkpoint_tool_start "$tool"
       case "$tool" in
       gh)
         install_gh
@@ -371,6 +392,7 @@ _install_specific_tools() {
         log_warn "Unknown tool: --$tool"
         ;;
       esac
+      if (( installed_count > _resume_before )); then resume_checkpoint_tool_done "$tool"; fi
     done
 
     echo
@@ -388,6 +410,8 @@ _install_specific_tools() {
     local failed_count=0
 
     for tool in "${tools[@]}"; do
+      _resume_before=$installed_count
+      resume_checkpoint_tool_start "$tool"
       case "$tool" in
       typescript)
         install_typescript
@@ -437,6 +461,7 @@ _install_specific_tools() {
         log_warn "Unknown node module: --$tool"
         ;;
       esac
+      if (( installed_count > _resume_before )); then resume_checkpoint_tool_done "$tool"; fi
     done
 
     echo
@@ -454,6 +479,8 @@ _install_specific_tools() {
     local failed_count=0
 
     for tool in "${tools[@]}"; do
+      _resume_before=$installed_count
+      resume_checkpoint_tool_start "$tool"
       case "$tool" in
       nodejs)
         install_npmjs
@@ -487,6 +514,7 @@ _install_specific_tools() {
         log_warn "Unknown language: --$tool"
         ;;
       esac
+      if (( installed_count > _resume_before )); then resume_checkpoint_tool_done "$tool"; fi
     done
 
     echo
@@ -504,6 +532,8 @@ _install_specific_tools() {
     local failed_count=0
 
     for tool in "${tools[@]}"; do
+      _resume_before=$installed_count
+      resume_checkpoint_tool_start "$tool"
       case "$tool" in
       powerlevel10k)
         install_powerlevel10k
@@ -549,6 +579,7 @@ _install_specific_tools() {
         log_warn "Unknown plugin: --$tool"
         ;;
       esac
+      if (( installed_count > _resume_before )); then resume_checkpoint_tool_done "$tool"; fi
     done
 
     echo
@@ -566,6 +597,8 @@ _install_specific_tools() {
     local failed_count=0
 
     for tool in "${tools[@]}"; do
+      _resume_before=$installed_count
+      resume_checkpoint_tool_start "$tool"
       case "$tool" in
       neovim)
         install_neovim
@@ -579,6 +612,7 @@ _install_specific_tools() {
         log_warn "Unknown editor component: --$tool"
         ;;
       esac
+      if (( installed_count > _resume_before )); then resume_checkpoint_tool_done "$tool"; fi
     done
 
     echo
@@ -596,6 +630,8 @@ _install_specific_tools() {
     local failed_count=0
 
     for tool in "${tools[@]}"; do
+      _resume_before=$installed_count
+      resume_checkpoint_tool_start "$tool"
       case "$tool" in
       font)
         install_font
@@ -617,6 +653,7 @@ _install_specific_tools() {
         log_warn "Unknown UI component: --$tool"
         ;;
       esac
+      if (( installed_count > _resume_before )); then resume_checkpoint_tool_done "$tool"; fi
     done
 
     echo
@@ -634,6 +671,8 @@ _install_specific_tools() {
     local failed_count=0
 
     for tool in "${tools[@]}"; do
+      _resume_before=$installed_count
+      resume_checkpoint_tool_start "$tool"
       case "$tool" in
       n8n)
         install_n8n
@@ -643,6 +682,7 @@ _install_specific_tools() {
         log_warn "Unknown automation tool: --$tool"
         ;;
       esac
+      if (( installed_count > _resume_before )); then resume_checkpoint_tool_done "$tool"; fi
     done
 
     echo
@@ -659,4 +699,11 @@ _install_specific_tools() {
     echo "Run 'core install' to see available targets"
     ;;
   esac
+
+  # Resume: a failed tool keeps the install "in progress" so the next
+  # command continues it instead of starting over.
+  if (( failed_count > 0 )); then
+    return 1
+  fi
+  return 0
 }

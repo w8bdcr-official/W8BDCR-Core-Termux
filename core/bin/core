@@ -20,6 +20,9 @@ source "$CORE_PATH/utils/bootstrap.sh"
 # cargar entorno
 import "@/utils/env"
 
+# cargar resume (restaurar despues de un corte de luz / Termux muerto)
+import "@/utils/resume"
+
 # ===== CHECK UPDATES =====
 check_for_updates() {
   local version_file="$CORE_CACHE/last_version_check"
@@ -81,5 +84,11 @@ fi
 
 # cargar CLI
 import "@/cli/core"
+
+# Resume: grabar este comando y restaurar en silencio lo que quedo de la
+# sesion anterior (servicios caidos, instalacion interrumpida). Un fallo
+# aqui nunca debe romper el comando pedido.
+resume_record_command "$@" || true
+resume_restore "$@" || true
 
 core_main "$@"

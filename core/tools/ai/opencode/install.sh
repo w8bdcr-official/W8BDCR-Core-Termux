@@ -195,20 +195,27 @@ _download_opencode_binary_impl() {
   fi
   urls+=("https://github.com/anomalyco/opencode/releases/latest/download/$tarball")
 
-  rm -f "$OPENCODE_DATA_DIR/$tarball"
-
+  # Resume: never delete the archive before downloading — a partial file is
+  # continued with curl -C - instead of fetched from zero.
   local downloaded=false
+
+  # A complete, valid archive needs no download at all.
+  if [ -s "$OPENCODE_DATA_DIR/$tarball" ] && tar -ztf "$OPENCODE_DATA_DIR/$tarball" &>/dev/null; then
+    downloaded=true
+  fi
+
   local url
   for url in "${urls[@]}"; do
-    if curl -fL --retry 3 --retry-delay 2 --connect-timeout 20 -H "User-Agent: W8BDCR-Core-Termux" "$url" -o "$OPENCODE_DATA_DIR/$tarball" &>>"$LOG_FILE"; then
+    [ "$downloaded" == "true" ] && break
+    if curl -C - -fL --retry 3 --retry-delay 2 --connect-timeout 20 -H "User-Agent: W8BDCR-Core-Termux" "$url" -o "$OPENCODE_DATA_DIR/$tarball" &>>"$LOG_FILE"; then
       if [ -s "$OPENCODE_DATA_DIR/$tarball" ] && tar -ztf "$OPENCODE_DATA_DIR/$tarball" &>/dev/null; then
         downloaded=true
         break
       fi
     fi
 
-    # SSL / CA fallback
-    if curl -fLk --retry 2 --retry-delay 2 --connect-timeout 20 -H "User-Agent: W8BDCR-Core-Termux" "$url" -o "$OPENCODE_DATA_DIR/$tarball" &>>"$LOG_FILE"; then
+    # SSL / CA fallback (also resumes)
+    if curl -C - -fLk --retry 2 --retry-delay 2 --connect-timeout 20 -H "User-Agent: W8BDCR-Core-Termux" "$url" -o "$OPENCODE_DATA_DIR/$tarball" &>>"$LOG_FILE"; then
       if [ -s "$OPENCODE_DATA_DIR/$tarball" ] && tar -ztf "$OPENCODE_DATA_DIR/$tarball" &>/dev/null; then
         downloaded=true
         break
@@ -218,7 +225,19 @@ _download_opencode_binary_impl() {
 
   if [ "$downloaded" != "true" ] || [ ! -s "$OPENCODE_DATA_DIR/$tarball" ]; then
     log_error "Failed to download OpenCode binary"
-    rm -f "$OPENCODE_DATA_DIR/$tarball"
+    # Partial file is KEPT so the next run resumes it (curl -C -).
+    # Exception: if the saved file is already as large as the server copy
+    # it is corrupt, not partial — drop it so the next run starts fresh
+    # instead of looping on a refused Range request.
+    if [ -s "$OPENCODE_DATA_DIR/$tarball" ] && ! tar -ztf "$OPENCODE_DATA_DIR/$tarball" &>/dev/null; then
+      local _remote_size _local_size
+      _remote_size=$(curl -sIL -H "User-Agent: W8BDCR-Core-Termux" "${urls[0]}" 2>/dev/null | tr -d '\r' | awk 'tolower($1) == "content-length:" {print $2}' | tail -n 1)
+      _local_size=$(stat -c%s "$OPENCODE_DATA_DIR/$tarball" 2>/dev/null || echo 0)
+      if [[ -n "$_remote_size" ]] && (( _local_size >= _remote_size )); then
+        rm -f "$OPENCODE_DATA_DIR/$tarball"
+        log_warn "Saved archive was corrupt, not partial — removed; next run downloads it fresh"
+      fi
+    fi
     return 1
   fi
 
@@ -326,7 +345,7 @@ _install_opencode_proot_impl() {
 		esac
 		mkdir -p /root/.opencode/bin
 		cd /root/.opencode/bin
-		curl -fL --retry 3 --retry-delay 2 "https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-linux-${_arch}.tar.gz" -o opencode.tar.gz
+		curl -C - -fL --retry 3 --retry-delay 2 "https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-linux-${_arch}.tar.gz" -o opencode.tar.gz
 		tar -zxf opencode.tar.gz
 		rm -f opencode.tar.gz
 		chmod +x /root/.opencode/bin/opencode
@@ -452,7 +471,7 @@ _update_opencode_proot_impl() {
 		esac
 		mkdir -p /root/.opencode/bin
 		cd /root/.opencode/bin
-		curl -fL --retry 3 --retry-delay 2 "https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-linux-${_arch}.tar.gz" -o opencode.tar.gz
+		curl -C - -fL --retry 3 --retry-delay 2 "https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-linux-${_arch}.tar.gz" -o opencode.tar.gz
 		tar -zxf opencode.tar.gz
 		rm -f opencode.tar.gz
 		chmod +x /root/.opencode/bin/opencode

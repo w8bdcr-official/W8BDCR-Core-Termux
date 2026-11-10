@@ -138,7 +138,11 @@ Want to back Core? Star the repo, or talk to us on Telegram — see Support belo
 | `ui` | Termux UI components | 4 | `core install ui` |
 | `auto` | Automation tools (n8n) | 1 | `core install auto` |
 
-These modules are available across most commands (`core list`, `core install`, `core update`, `core reinstall`, `core uninstall`, `core show`, and `core open`).
+These modules are available across most commands (`core list`, `core install`, `core update`, `core reinstall`, `core uninstall`, `core show`, `core open`, and `core resume`).
+
+### ⚡ Power cut? `core resume`
+
+If Termux is killed or the power goes out mid-work, run `core resume` — it restarts your services (OmniRoute gateway, OpenCode server) and continues the interrupted install from its checkpoint instead of starting over. Every `core` command also restores stopped services silently in the background.
 
 ### 🔀 Or install one tool at a time — 84 in the list
 
