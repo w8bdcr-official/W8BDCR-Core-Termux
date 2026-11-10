@@ -11,7 +11,7 @@ curl -fsSL "https://raw.githubusercontent.com/w8bdcr-official/W8BDCR-Core-Termux
 ### ▶️ Then just run it:
 
 ```
-core
+core install ai
 ```
 
 > One CLI runs everything — languages, databases, AI agents, editors, shell, automation.
