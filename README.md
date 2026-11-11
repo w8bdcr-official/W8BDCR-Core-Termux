@@ -1,20 +1,6 @@
 # ⚡ 1) Install & run
 
-### ▶️ Run it:
-
-```
-core install ai
-```
-
-> One CLI runs everything — languages, databases, AI agents, editors, shell, automation.
-
-### ⚡ Power cut? Pick up where you left off:
-
-```
-core resume
-```
-
-### 📱 Termux (Android) Quick Install & Auto-Update:
+### 📲 1. Install it:
 
 ```
 curl -fsSL "https://raw.githubusercontent.com/w8bdcr-official/W8BDCR-Core-Termux/main/install.sh?$(date +%s)" | bash
@@ -22,7 +8,23 @@ curl -fsSL "https://raw.githubusercontent.com/w8bdcr-official/W8BDCR-Core-Termux
 
 > 💡 Tip: To update on Termux anytime, re-run the installer — it updates the framework in place and reuses your existing setup.
 
+### ▶️ 2. Run it:
+
+```
+core install ai
+```
+
+> One CLI runs everything — languages, databases, AI agents, editors, shell, automation.
+
+### ✅ 3. Proof — it works on a real phone:
+
 ![Core Session](docs/diagrams/core-session.svg)
+
+### ⚡ Power cut? Pick up where you left off:
+
+```
+core resume
+```
 
 # 🚀 W8BDCR Core — The Dev Workstation in Your Pocket
 
